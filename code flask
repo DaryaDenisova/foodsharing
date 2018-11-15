@@ -1,0 +1,17 @@
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/create_offer")
+def offer():
+    return "Enter the name of the offer"
+
+
+@app.route("/main_page")
+def main_page():
+    return "the map"
+
+@app.route("/my_profile")
+def profile():
+    return "name, rating"
+
+app.run(port = 5000)
