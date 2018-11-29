@@ -6,6 +6,39 @@ users = {
     }
 }
 
+items = {
+    '1': {
+        'title': 'bread from bakery',
+        'location': 'vladimirskaya',
+        'date' : '29.11.2018'
+        'time': '16:00'
+    },
+
+    '2': {
+        'title': 'vegetables',
+        'location': 'kupchino',
+        'date' : '29.11.2018'
+        'time': '16:30'
+    },
+    '3': {
+        'title': 'sweets and cookies',
+        'location': 'nevsky',
+        'date' : '28.11.2018'
+        'time': '20:00'
+    },
+
+    '4': {
+        'title': 'breadt meal 2 portions',
+        'location': 'petrogradskaya',
+        'date' : '30.11.2018'
+        'time': '11:00'
+    }
+}
+
+
+
+
+
 _users_list = list(_users.values())
 
 
