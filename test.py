@@ -1,32 +1,35 @@
-from flask import Flask
+from flask import Flask, request
 from flask import render_template
-from flask import request
-import db
+import sqlite3
+
 
 app = Flask(__name__)
 
-
-@app.route("/main")
+@app.route("/")
 def offer():
-    return render_template('main_map.html')
-
+    return render_template('index.html')
 
 @app.route("/register")
 def register():
-    return render_template('register.html')
+    return render_template('register page.html')
 
+@app.route('/search')
+def search_for_offer():
+    # connecting to DB
+    conn = sqlite3.connect('app.db')
+    c = conn.cursor() #creating cursor to execute queires
+    q = request.args.get('query') #getting query from Web
 
-@app.route("/profile")
-def profile():
-    return render_template('result.html')
+    #handler logic here
+    c.execute("SELECT * FROM offer where name LIKE '{q}'".format(q=q))
+    offer = list(c.fetchall())
 
-@app.route("/search")
-def search_for():
-    q = request.args.get('query')
-    users = db.get_users_by_name()
+    #close connection
+    conn.close()
 
-
-
-def
+    # return resulting html
+    return render_template('search.html', offer=offer)
 
 app.run(port=5000)
+
+
