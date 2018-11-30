@@ -4,7 +4,7 @@ import sqlite3
 conn = sqlite3.connect('app.db')
 
 #CREATE A CURSOR - a
-
+ ##
 c = conn.cursor()
 
 c.execute('''
