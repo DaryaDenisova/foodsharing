@@ -1,29 +1,41 @@
 items = {
     '1': {
-        'title': 'bread from bakery',
+        'name': 'bread from bakery',
+        'category': 'bread',
+        'description': 'otdam hleb 5 kilogram',
         'location': 'vladimirskaya',
-        'date' : '29.11.2018'
-        'time': '16:00'
+        'giver_id': 1
+        'taker_id': 5
+        'time of the deal': '29/12, 16:00'
     },
 
     '2': {
-        'title': 'vegetables',
+        'name': 'cucumbers and tomatoes',
+        'category': 'vegetables',
+        'description': 'otdam v dobriye ruki svoi ovoschi s gryadki',
         'location': 'kupchino',
-        'date' : '29.11.2018'
-        'time': '16:30'
+        'giver_id': 6
+        'taker_id': 3
+        'time of the deal': '07/10, 12:00'
     },
     '3': {
-        'title': 'sweets and cookies',
-        'location': 'nevsky',
-        'date' : '28.11.2018'
-        'time': '20:00'
+        'name': 'chocolate',
+        'category': 'sweet',
+        'description': 'ostalos mnogo shokolada s novogo goda',
+        'location': 'nevsky prospekt',
+        'giver_id': 10
+        'taker_id': 4
+        'time of the deal': '15/01, 19:00'
     },
 
     '4': {
-        'title': 'breadt meal 2 portions',
-        'location': 'petrogradskaya',
-        'date' : '30.11.2018'
-        'time': '11:00'
+        'name': 'pork',
+        'category': 'meat',
+        'description': 'ubili sviniyu, sami uje naelis, otdaem svejee myaso',
+        'location': 'devyatkino',
+        'giver_id': 15
+        'taker_id': 88/
+        'time of the deal': '13/06, 09:00'
     }
 }
 
