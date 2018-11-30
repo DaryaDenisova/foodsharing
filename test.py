@@ -4,9 +4,9 @@ from flask import render_template
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/main")
 def offer():
-    return render_template('index.html')
+    return render_template('main_map.html')
 
 @app.route("/register")
 def register():
