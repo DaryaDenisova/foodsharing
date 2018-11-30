@@ -1,11 +1,3 @@
-users = {
-    'darya': {
-        'name': 'Darya Denisova',
-        'job_title': 'student',
-        'place': 'HSE'
-    }
-}
-
 items = {
     '1': {
         'title': 'bread from bakery',
