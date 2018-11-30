@@ -3,6 +3,7 @@ import sqlite3
 # connect ar database - in local file app.db
 conn = sqlite3.connect('app.db')
 
+#
 #CREATE A CURSOR - a
 
 c = conn.cursor()
