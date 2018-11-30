@@ -1,8 +1,9 @@
-
-from flask import Flask
+from flask import Flask, request
 from flask import render_template
-app = Flask(__name__)
+import sqlite3
 
+
+app = Flask(__name__)
 
 @app.route("/")
 def offer():
@@ -13,10 +14,21 @@ def register():
     return render_template('register page.html')
 
 @app.route('/search')
-def search_for_person():
-    q = request.args.get('query')
-    users = db.get_users_by_name(q)
-    return render_template('search_results.html', q=q, users=users)
+def search_for_offer():
+    # connecting to DB
+    conn = sqlite3.connect('app.dbase')
+    c = conn.cursor() #creating cursor to execute queires
+    q = request.ards.get('query') #getting query from Web
+
+    #handler logic here
+    c.execute("SELECT * FROM offer where name LIKE '{q}'".format(q=q))
+    offer = list(c.fetchall())
+
+    #close connection
+    conn.close()
+
+    # return resulting html
+    return render_template('search.html', offer=offer)
 
 app.run(port=5000)
 
