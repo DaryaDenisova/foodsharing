@@ -30,6 +30,11 @@ def search_for_offer():
     # return resulting html
     return render_template('search.html', offer=offer)
 
+@app.route('/add_user')
+def add_user():
+
+
+
 app.run(port=5000)
 
 
