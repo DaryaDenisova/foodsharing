@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request,redirect
 from flask import render_template
 import sqlite3
 
@@ -40,9 +40,26 @@ def search_for_offer():
     # return resulting html
     return render_template('search.html', offer=offer)
 
-@app.route('/add_user')
-def add_user():
-    if request.method == 'post':
+
+@app.route('/offer/<offer_id>/')
+def offer_page(offer_id):
+    conn = sqlite3.connect('app.db')
+    conn.row_factory = dict_factory
+    c = conn.cursor()
+
+    # Handler logic here
+    c.execute("SELECT * FROM offer WHERE offer_id='%s'" % offer_id)
+    offer_data = c.fetchone()
+
+    # Close connection
+    conn.close()
+    return render_template("offerpage.html", offer_id=offer_data)
+
+
+
+@app.route('/add_offer', methods=['GET', 'POST'])
+def add_offer():
+    if request.method == 'POST':
         #add new data
         offer = {}
         offer['name'] = request.form.get('name')
@@ -62,11 +79,9 @@ def add_user():
                   "('{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
                   "".format(**offer))
 
-
         #return to page
-        return redirect('/user/%s/' % offer['name'])
-        pass
-    return render_template("add_user.html")
+        return redirect('/offer/%s/' % offer['offer_id'])
+    return render_template("add_offer.html")
 
 
 app.run(port=5000)
