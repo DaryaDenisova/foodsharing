@@ -33,6 +33,28 @@ def search_for_offer():
 @app.route('/add_user')
 def add_user():
     if request.method == 'post':
+        #add new data
+        offer = {}
+        offer['name'] = request.form.get('name')
+        offer['category'] = request.form.get('category')
+        offer['description'] = request.form.get('description')
+        offer['location'] = request.form.get('location')
+        offer['giver_id'] = request.form.get('giver_id')
+        offer['date'] = request.form.get('date')
+        offer['time'] = request.form.get('time')
+
+        #save to db
+        conn = sqlite3.connect('app.db')
+        c = conn.cursor()
+        c.execute("INSERT INTO offer "
+                  "(name, category, description, location, giver_id, date, time) "
+                  "VALUES "
+                  "('{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
+                  "".format(**offer)
+
+
+        #return to page
+        return redirect('/user/%s/' %offer['name'])
         pass
     return render_template("add_user.html")
 
