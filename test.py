@@ -35,6 +35,7 @@ def search_for_offer():
 
     #close connection
     conn.close()
+    return render_template('search_result.html')
 
     # return resulting html
     return render_template('search.html', offer=offer)
