@@ -62,6 +62,7 @@ def add_offer():
     if request.method == 'POST':
         #add new data
         offer = {}
+        offer['offer_id'] = request.form.get('offer_id')
         offer['name'] = request.form.get('name')
         offer['category'] = request.form.get('category')
         offer['description'] = request.form.get('description')
@@ -74,9 +75,9 @@ def add_offer():
         conn = sqlite3.connect('app.db')
         c = conn.cursor()
         c.execute("INSERT INTO offer "
-                  "(name, category, description, location, giver_id, date, time) "
+                  "(offer_id, name, category, description, location, giver_id, date, time) "
                   "VALUES "
-                  "('{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
+                  "('[offer_id]', '{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
                   "".format(**offer))
 
         #return to page
