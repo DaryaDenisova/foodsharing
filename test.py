@@ -32,7 +32,9 @@ def search_for_offer():
 
 @app.route('/add_user')
 def add_user():
-
+    if request.method == 'post':
+        pass
+    return render_template("add_user.html")
 
 
 app.run(port=5000)
