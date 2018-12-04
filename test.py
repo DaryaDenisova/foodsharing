@@ -5,6 +5,13 @@ import sqlite3
 
 app = Flask(__name__)
 
+
+def dict_factory(cursor, row):
+    d = {}
+    for idx, col in enumerate(cursor.description):
+        d[col[0]] = row[idx]
+    return d
+
 @app.route("/")
 def offer():
     return render_template('index.html')
@@ -17,6 +24,8 @@ def register():
 def search_for_offer():
     # connecting to DB
     conn = sqlite3.connect('app.db')
+    conn.row_factory = dict_factory
+
     c = conn.cursor() #creating cursor to execute queires
     q = request.args.get('query') #getting query from Web
 
@@ -50,11 +59,11 @@ def add_user():
                   "(name, category, description, location, giver_id, date, time) "
                   "VALUES "
                   "('{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
-                  "".format(**offer)
+                  "".format(**offer))
 
 
         #return to page
-        return redirect('/user/%s/' %offer['name'])
+        return redirect('/user/%s/' % offer['name'])
         pass
     return render_template("add_user.html")
 
