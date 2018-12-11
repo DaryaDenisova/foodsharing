@@ -86,7 +86,14 @@ def add_offer():
         #redirect to offer page
         return redirect('/offer/%s/' % offer['offer_id'])
 
-    return render_template("add_offer.html")
+    conn = sqlite3.connect('app.db')
+    conn.row_factory = dict_factory
+    c = conn.cursor()
+    c.execute("SELECT * FROM metro_station")
+    metro_stations = c.fetchall()
+    conn.close()
+
+    return render_template("add_offer.html",  metro_stations=metro_stations)
 
 
 app.run(port=5000)

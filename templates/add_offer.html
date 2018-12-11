@@ -20,11 +20,11 @@
     <label>Description</label>
     <input class = "form-control" type = "text" name = "description">
 
-    <label>Metro station</label>
+    <label>Location</label>
         <select name="location" class="form-control">
-                {% for station in metro_stations %}
+            {% for station in metro_stations %}
                 <option value="{{station_id}}">{{station_name}}</option>
-                {% endfor %}
+            {% endfor %}
         </select>
 
     <label>Giver Id</label>
