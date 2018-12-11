@@ -29,7 +29,6 @@ c.execute('''
 CREATE TABLE users(
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
     login TEXT,
-    rating TEXT,
     offers_given INTEGER,
     offers_takes INTEGER,
     FOREIGN KEY (offers_given) REFERENCES offer(offer_id),
@@ -42,14 +41,10 @@ CREATE TABLE deal_agreement(
     offer_id INTEGER,
     giver_id INTEGER,
     taker_id INTEGER,
-    giver_rating INTEGER,
-    taker_rating INTEGER,
     time TEXT,
     FOREIGN KEY (offer_id) REFERENCES offer(offer_id),   
     FOREIGN KEY (giver_id) REFERENCES users(user_id),
-    FOREIGN KEY (taker_id) REFERENCES users(user_id),
-    FOREIGN KEY (giver_rating) REFERENCES users(rating),
-    FOREIGN KEY (taker_rating) REFERENCES users(rating)
+    FOREIGN KEY (taker_id) REFERENCES users(user_id)
 )
 ''')
 
@@ -171,4 +166,30 @@ VALUES ('1', 'Devyatkino'),
 ('65', 'Volkovskaya'), 
 ('66', 'Bukharestskaya'), 
 ('67', 'Mezhdunarodnaya');
+''')
+
+conn.commit()
+
+c.execute('''
+INSERT INTO TABLE users('admin', '1', '2'),
+('adaizada', '2', '2'),
+('kisa', '3', '2'),
+('pupsik', '4', '2'),
+('superboy', '5', '2'),
+('dasaputeshestvennitza', '6', '2'),
+('mitya', '7', '2'),
+('vvp', '8', '2'),
+('vippersona', '9', '2'),
+('prostoychelovek', '10', '2'),
+('shkolnik', '11', '2'),
+('krokodil', '12', '2'),
+('chubayes', '13', '2'),
+('nina', '14', '2'),
+('tsipa', '15', '2'),
+('sportsmen', '16', '2'),
+('ucheny', '17', '2'),
+('student', '18', '2'),
+('passanger', '19', '2'),
+('taxomen', '20', '2'),
+)
 ''')
