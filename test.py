@@ -31,14 +31,14 @@ def search_for_offer():
 
     #handler logic here
     c.execute("SELECT * FROM offer where name LIKE '{q}'".format(q=q))
-    offer = list(c.fetchall())
+    offers = list(c.fetchall())
 
     #close connection
     conn.close()
-    return render_template('search_result.html')
+    #return render_template('search_result.html')
 
     # return resulting html
-    return render_template('search.html', offer=offer)
+    return render_template('search.html', offers=offers)
 
 
 @app.route('/offer/<offer_id>/')
@@ -62,7 +62,6 @@ def add_offer():
     if request.method == 'POST':
         #add new data
         offer = {}
-        offer['offer_id'] = request.form.get('offer_id')
         offer['name'] = request.form.get('name')
         offer['category'] = request.form.get('category')
         offer['description'] = request.form.get('description')
@@ -75,13 +74,16 @@ def add_offer():
         conn = sqlite3.connect('app.db')
         c = conn.cursor()
         c.execute("INSERT INTO offer "
-                  "(offer_id, name, category, description, location, giver_id, date, time) "
+                  "(name, category, description, location, giver_id, date, time) "
                   "VALUES "
-                  "('[offer_id]', '{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
+                  "('{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
                   "".format(**offer))
+        conn.commit()
+        conn.close()
 
-        #return to page
+        #redirect to offer page
         return redirect('/offer/%s/' % offer['offer_id'])
+
     return render_template("add_offer.html")
 
 
