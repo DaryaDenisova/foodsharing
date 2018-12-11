@@ -15,9 +15,9 @@ CREATE TABLE offer(
     category TEXT,
     description TEXT,
     location TEXT,
-    giver_id INTEGER,  
-    taker_id INTEGER,
-    time of the deal TEXT,
+    giver_id INTEGER,
+    date of the deal DATE,
+    time of the deal TIME,
     FOREIGN KEY (taker_id) REFERENCES users(user_id), 
     FOREIGN KEY (giver_id) REFERENCES users(user_id)
 )
