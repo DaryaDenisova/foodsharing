@@ -30,17 +30,21 @@ def search_for_offer():
 
     c = conn.cursor() #creating cursor to execute queires
     q = request.args.get('query') #getting query from Web
+    qq = request.args.get('location')
 
     #handler logic here
     c.execute("SELECT * FROM offer where name LIKE '{q}'".format(q=q))
     offers = list(c.fetchall())
+
+    c.execute("SELECT * FROM offer where location LIKE '{qq}'".format(qq=qq))
+    metro_stations = list(c.fetchall())
 
     #close connection
     conn.close()
     #return render_template('search_result.html')
 
     # return resulting html
-    return render_template('search.html', offers=offers)
+    return render_template('search.html', offers=offers, metro_stations=metro_stations)
 
 
 @app.route('/offer/<offer_id>/')
@@ -81,15 +85,17 @@ def add_offer():
                   "('{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
                   "".format(**offer))
         conn.commit()
+        c.execute("SELECT last_insert_rowid()")
+        offer_id = c.fetchone()
         conn.close()
 
         #redirect to offer page
-        return redirect('/offer/%s/' % offer['offer_id'])
+        return redirect('/offer/%s/' % offer_id)
 
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
     c = conn.cursor()
-    c.execute("SELECT * FROM metro_station")
+    c.execute("SELECT * FROM metro_station ORDER BY station_name ASC")
     metro_stations = c.fetchall()
     conn.close()
 
@@ -97,5 +103,3 @@ def add_offer():
 
 
 app.run(port=5000)
-
-

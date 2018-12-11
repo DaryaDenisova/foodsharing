@@ -23,7 +23,7 @@
     <label>Location</label>
         <select name="location" class="form-control">
             {% for station in metro_stations %}
-                <option value="{{station_id}}">{{station_name}}</option>
+                <option value="{{station.station_id}}">{{station.station_name}}</option>
             {% endfor %}
         </select>
 
