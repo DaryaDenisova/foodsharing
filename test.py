@@ -12,11 +12,11 @@ def dict_factory(cursor, row):
         d[col[0]] = row[idx]
     return d
 
-@app.route('/')
+@app.route("/")
 def offer():
     return render_template('index.html')
 
-@app.route('/register')
+@app.route("/register")
 def register():
     return render_template('register page.html')
 
@@ -31,14 +31,14 @@ def search_for_offer():
 
     #handler logic here
     c.execute("SELECT * FROM offer where name LIKE '{q}'".format(q=q))
-    offers = list(c.fetchall())
+    offer = list(c.fetchall())
 
     #close connection
     conn.close()
-    #return render_template('search_result.html')
+    return render_template('search_result.html')
 
     # return resulting html
-    return render_template('search.html', offers=offers)
+    return render_template('search.html', offer=offer)
 
 
 @app.route('/offer/<offer_id>/')
@@ -62,6 +62,7 @@ def add_offer():
     if request.method == 'POST':
         #add new data
         offer = {}
+        offer['offer_id'] = request.form.get('offer_id')
         offer['name'] = request.form.get('name')
         offer['category'] = request.form.get('category')
         offer['description'] = request.form.get('description')
@@ -74,16 +75,13 @@ def add_offer():
         conn = sqlite3.connect('app.db')
         c = conn.cursor()
         c.execute("INSERT INTO offer "
-                  "(name, category, description, location, giver_id, date, time) "
+                  "(offer_id, name, category, description, location, giver_id, date, time) "
                   "VALUES "
-                  "('{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
+                  "('[offer_id]', '{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
                   "".format(**offer))
-        conn.commit()
-        conn.close()
 
-        #redirect to offer page
+        #return to page
         return redirect('/offer/%s/' % offer['offer_id'])
-
     return render_template("add_offer.html")
 
 
