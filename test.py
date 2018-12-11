@@ -12,11 +12,11 @@ def dict_factory(cursor, row):
         d[col[0]] = row[idx]
     return d
 
-@app.route("/")
+@app.route('/')
 def offer():
     return render_template('index.html')
 
-@app.route("/register")
+@app.route('/register')
 def register():
     return render_template('register page.html')
 
