@@ -1,4 +1,4 @@
-from flask import Flask, request,redirect
+from flask import Flask, request, redirect
 from flask import render_template
 import sqlite3
 
@@ -12,9 +12,12 @@ def dict_factory(cursor, row):
         d[col[0]] = row[idx]
     return d
 
+
 @app.route("/")
 def offer():
     return render_template('index.html')
+
+
 
 @app.route("/register")
 def register():

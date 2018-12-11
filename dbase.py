@@ -16,9 +16,8 @@ CREATE TABLE offer(
     description TEXT,
     location TEXT,
     giver_id INTEGER,  
-    taker_id INTEGER,
+    date of the deal TEXT,
     time of the deal TEXT,
-    FOREIGN KEY (taker_id) REFERENCES users(user_id), 
     FOREIGN KEY (giver_id) REFERENCES users(user_id)
 )
 ''')
@@ -55,17 +54,17 @@ conn.commit()
 # adding some data
 
 c.execute ('''
-    INSERT INTO offer (offer_id, name, category, description, location, giver_id, taker_id, time of the deal)
-    VALUES ('1', 'chocolate', 'sweet', 'ostalos mnogo shokolada s novogo goda', 'nevsky prospekt', '10', '4', '15/01, 19:00'),
-    ('2', 'tomatoes amd cucumbers', 'vegetable', 'svoi ovoschi s gryadki', 'kupchino', '5', '8', '08/08, 12:00'),
-    ('3', 'apples', 'fruit', 'narvali u sosedeq, ochen vkusnye', 'prospekt veteranov', '12', '20', '17/09, 10:00'),
-    ('4', 'bulochki', 'bread', 'darim schastiye i svejie bulochki v vash dom', 'pekarnya volcheka', '2', '13', '12/12, 23:00'),
-    ('5', 'porridge', 'croup', 'navarila kashi na ves rayon', 'kanal griboedova', '1', '7', '21/12, 11:00'),
-    ('6', 'zubatka', 'fish', 'zapaha vrode net', 'metro zvezdnaya', '11', '14', '11/12, 20:00'),
-    ('7', 'sea kale', 'sea food', 'pokazalas ne vkusnoy', 'rybatskoe', '2', '9', '10/01, 21:00'),
-    ('8', 'wine', 'alcohol', 'otdam 2 butylki krasnogo', 'devyatkino', '6', '3', '02/02, 18:00'),
-    ('9', 'provencal herbs', 'spice', 'klevye travy, no ne na moy vkus', 'petrogradskiy district', '22', '21', '16/10, 14:00'),
-    ('10', 'pumpkin seeds', 'nuts and seeds', 'ya takoye ne em', 'ulitsa belgradskaya', '16', '19', '14/11, 19:00');
+    INSERT INTO offer (offer_id, name, category, description, location, giver_id,  date of the deal, time of the deal)
+    VALUES ('1', 'chocolate', 'sweet', 'ostalos mnogo shokolada s novogo goda', 'nevsky prospekt', '10', '15.01.2018', '19:00'),
+    ('2', 'tomatoes amd cucumbers', 'vegetable', 'svoi ovoschi s gryadki', 'kupchino', '5', '08.08.2018', '12:00'),
+    ('3', 'apples', 'fruit', 'narvali u sosedeq, ochen vkusnye', 'prospekt veteranov', '12', '17.09.2018', '10:00'),
+    ('4', 'bulochki', 'bread', 'darim schastiye i svejie bulochki v vash dom', 'pekarnya volcheka', '2', '12.12.2018', '23:00'),
+    ('5', 'porridge', 'croup', 'navarila kashi na ves rayon', 'kanal griboedova', '1', '21.12.2018', '11:00'),
+    ('6', 'zubatka', 'fish', 'zapaha vrode net', 'metro zvezdnaya', '11', '11.12.2018', '20:00'),
+    ('7', 'sea kale', 'sea food', 'pokazalas ne vkusnoy', 'rybatskoe', '2', '10.01.2018', '21:00'),
+    ('8', 'wine', 'alcohol', 'otdam 2 butylki krasnogo', 'devyatkino', '6', '02.02.2018', '18:00'),
+    ('9', 'provencal herbs', 'spice', 'klevye travy, no ne na moy vkus', 'petrogradskiy district', '22', '16.10.2018', '14:00'),
+    ('10', 'pumpkin seeds', 'nuts and seeds', 'ya takoye ne em', 'ulitsa belgradskaya', '16', '14.11.2018', '19:00');
 
 ''')
 #MANY TO MANY
