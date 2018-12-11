@@ -65,28 +65,28 @@ conn.commit()
 # adding some data
 
 c.execute ('''
-    INSERT INTO offer (name, category, description, location, giver_id,  date, time)
-    VALUES ('chocolate', 'sweet', 'ostalos mnogo shokolada s novogo goda', 'nevsky prospekt', '10', '15.01.2018', '19:00'),
-    ('tomatoes amd cucumbers', 'vegetable', 'svoi ovoschi s gryadki', 'kupchino', '5', '08.08.2018', '12:00'),
-    ('apples', 'fruit', 'narvali u sosedeq, ochen vkusnye', 'prospekt veteranov', '12', '17.09.2018', '10:00'),
-    ('bulochki', 'bread', 'darim schastiye i svejie bulochki v vash dom', 'pekarnya volcheka', '2', '12.12.2018', '23:00'),
-    ('porridge', 'croup', 'navarila kashi na ves rayon', 'sennaya ploshad', '1', '21.12.2018', '11:00'),
-    ('zubatka', 'fish', 'zapaha vrode net', 'zvezdnaya', '11', '11.12.2018', '20:00'),
-    ('sea kale', 'sea food', 'pokazalas ne vkusnoy', 'rybatskoe', '2', '10.01.2018', '21:00'),
-    ('wine', 'alcohol', 'otdam 2 butylki krasnogo', 'devyatkino', '6', '02.02.2018', '18:00'),
-    ('provencal herbs', 'spice', 'klevye travy, no ne na moy vkus', 'petrogradskaya', '22', '16.10.2018', '14:00'),
-    ('pumpkin seeds', 'nuts and seeds', 'ya takoye ne em', 'mejdunarodnaya', '16', '14.11.2018', '19:00'),
-    ('semena', 'nuts and seeds', 'godnota dlya popugov', 'lomonosovskaya', '17', '18.11.2018', '14:00'), 
-    ('potato soup', 'ready mix', 'ot babushki', 'avtovo', '11','02.09.2018', '14:30'), 
-    ('pertushka', 'green', 'iz svoego ogoroda', 'zvenigorodskaya', '10', '11.11.2018', '15:30'), 
-    ('izabella', 'wine', 'podarili na prazdnik', 'dostoevskaya', '7', '7.08.2018', '18:30'), 
-    ('granatovoye', 'wine', 'ne lublu vino', 'parnas', '6', '14.09.2018', '18:20'), 
-    ('water melon', 'fruits and vegetables', 'ochen mnogo na dache', 'devyatkino', '3', '19.08.2018', '10:20'), 
-    ('cucumbers', 'fruits and vegetables', 's dachi vezy', 'devyatkino', '9', '19.08.2018', '11:40'), 
-    ('choco bins', 'nuts and seeds', 'podarili a u menya allergiya', 'devyatkino', '2', '20.10.2018', '12:00'), 
-    ('moloko', 'dairy', 'iz nastoyashi korovy', 'sennaya ploschad', '12', '20.10.2018', '11:00'), 
-    ('bulka hleba', 'bread', 'pud hleba razdaet podarki', 'nevsky prospekt', '8', '20.10.2018', '13:30'), 
-    ('choco bins', 'nuts and seeds', 'priverly iz kitaya', 'sadovaya', '11', '20.10.2018', '14:00');
+    INSERT INTO offer (name, category, description, location, station_id, giver_id,  date, time)
+    VALUES ('chocolate', 'sweet', 'ostalos mnogo shokolada s novogo goda', 'nevsky prospekt', '27', '10', '15.01.2018', '19:00'),
+    ('tomatoes amd cucumbers', 'vegetable', 'svoi ovoschi s gryadki', 'kupchino', '36', '5', '08.08.2018', '12:00'),
+    ('apples', 'fruit', 'narvali u sosedeq, ochen vkusnye', 'prospekt veteranov', '18', '12', '17.09.2018', '10:00'),
+    ('bulochki', 'bread', 'darim schastiye i svejie bulochki v vash dom', 'proletarskaya', '46', '2', '12.12.2018', '23:00'),
+    ('porridge', 'croup', 'navarila kashi na ves rayon', 'sennaya ploshad', '28', '1', '21.12.2018', '11:00'),
+    ('zubatka', 'fish', 'zapaha vrode net', 'zvezdnaya', '35', '11', '11.12.2018', '20:00'),
+    ('sea kale', 'sea food', 'pokazalas ne vkusnoy', 'rybatskoe', '48', '2', '10.01.2018', '21:00'),
+    ('wine', 'alcohol', 'otdam 2 butylki krasnogo', 'devyatkino', '1', '6', '02.02.2018', '18:00'),
+    ('provencal herbs', 'spice', 'klevye travy, no ne na moy vkus', 'petrogradskaya', '25', '22', '16.10.2018', '14:00'),
+    ('pumpkin seeds', 'nuts and seeds', 'ya takoye ne em', 'mejdunarodnaya', '67', '16', '14.11.2018', '19:00'),
+    ('semena', 'nuts and seeds', 'godnota dlya popugov', 'lomonosovskaya', '45', '17', '18.11.2018', '14:00'), 
+    ('potato soup', 'ready mix', 'ot babushki', 'avtovo', '16', '11','02.09.2018', '14:30'), 
+    ('pertushka', 'green', 'iz svoego ogoroda', 'zvenigorodskaya', '63', '10', '11.11.2018', '15:30'), 
+    ('izabella', 'wine', 'podarili na prazdnik', 'dostoevskaya', '50', '7', '7.08.2018', '18:30'), 
+    ('granatovoye', 'wine', 'ne lublu vino', 'parnas', '19', '6', '14.09.2018', '18:20'), 
+    ('water melon', 'fruits and vegetables', 'ochen mnogo na dache', 'devyatkino', '1', '3', '19.08.2018', '10:20'), 
+    ('cucumbers', 'fruits and vegetables', 's dachi vezy', 'devyatkino', '1', '9', '19.08.2018', '11:40'), 
+    ('choco bins', 'nuts and seeds', 'podarili a u menya allergiya', 'devyatkino', '1', '2', '20.10.2018', '12:00'), 
+    ('moloko', 'dairy', 'iz nastoyashi korovy', 'sennaya ploschad', '28', '12', '20.10.2018', '11:00'), 
+    ('bulka hleba', 'bread', 'pud hleba razdaet podarki', 'nevsky prospekt', '27', '8', '20.10.2018', '13:30'), 
+    ('choco bins', 'nuts and seeds', 'priverly iz kitaya', 'sadovaya', '62', '11', '20.10.2018', '14:00');
 
 ''')
 #MANY TO MANY
