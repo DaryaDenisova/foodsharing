@@ -20,8 +20,12 @@ def offer():
     return render_template('index.html')
 
 
-@app.route('/register')
+@app.route('/register', methods = ['GET', 'POST'])
 def register():
+
+    user_created = False
+    error_message = ""
+
     if request.method == 'POST':
         #add new data
         users = {}
@@ -35,13 +39,25 @@ def register():
                   "VALUES"
                   "('{login}')"
                   "".format(**users))
-        conn.commit()
-        c.execute("SELECT last_insert_rowid()")
-        user_id = c.fetchone()
-        conn.close()
+        if c.fetchone():
+            # user with this login is already in my database
+            error_message = "user_exists"
+        else:
+            c.execute("INSERT INTO users "
+                      "(login) "
+                      "VALUES "
+                      "('{login})"
+                      "".format(**users))
 
-    #redirect to offer page
-        return redirect('/register/%s/' % user_id)
+
+            conn.commit()
+            user_created = True
+  #      c.execute("SELECT last_insert_rowid()")
+   #     user_id = c.fetchone()
+   #     conn.close()
+
+        #redirect to offer page
+        return redirect('/register/%s/' % users['login'])
 
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
@@ -49,7 +65,7 @@ def register():
     c.execute("SELECT * FROM users ORDER BY login ASC")
     users = c.fetchall()
     conn.close()
-    return render_template('register.html')
+    return render_template('register.html', users = users)
 
 
 @app.route('/search', methods=['GET', 'POST'])
