@@ -24,29 +24,47 @@ def offer():
 def register():
     return render_template('register page.html')
 
-@app.route('/search')
+@app.route('/search', methods=['GET', 'POST'])
 def search_for_offer():
-    # connecting to DB
+    if request.method == 'POST':
+        offer_name = request.form.get('name')
+
+        # connecting to DB
+     #   conn = sqlite3.connect('app.db')
+      #  conn.row_factory = dict_factory
+
+     #   c.execute("SELECT last_insert_rowid()")
+     #   offer_result = c.fetchall()
+     #   conn.close()
+
+  #      c = conn.cursor() #creating cursor to execute queires
+   #     q = request.args.get('query') #getting query from Web
+
+        #handler logic here
+     #   c.execute("SELECT * FROM offer where name LIKE '%s'" %  offer_result)
+   #     offers = list(c.fetchall())
+
+        #close connection
+     #   conn.close()
+        #return render_template('search_result.html')
+
+        # return resulting html
+        return redirect('search/%s/' % offer_name, offer_result = offer_name)
+    return render_template("search.html")
+
+
+@app.route('/search/<offer_result>/')
+def search_result(offer_result):
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
+    c = conn.cursor()
 
-    c = conn.cursor() #creating cursor to execute queires
-    q = request.args.get('query') #getting query from Web
-    qq = request.args.get('location')
-
-    #handler logic here
-    c.execute("SELECT * FROM offer where name LIKE '{q}'".format(q=q))
-    offers = list(c.fetchall())
-
-    c.execute("SELECT * FROM offer where location LIKE '{qq}'".format(qq=qq))
-    metro_stations = list(c.fetchall())
-
-    #close connection
+    c.execute("SELECT * FROM offer WHERE name='%s'" % offer_result)
+    offer_data =c.fetchall()
     conn.close()
-    #return render_template('search_result.html')
 
-    # return resulting html
-    return render_template('search.html', offers=offers, metro_stations=metro_stations)
+    return render_template("result.html", offers=offer_data)
+
 
 
 @app.route('/offer/<offer_id>/')
