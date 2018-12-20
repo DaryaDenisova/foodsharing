@@ -6,6 +6,12 @@
     <title>Registration</title>
 </head>
 <body>
+    {% if user_created %}
+        <div class="alert alert-success">User Created</div>
+    {% elif error_message=="user_exists" %}
+        <div class="alert alert-danger">User with this login already exists</div>
+    {%endif%}
+
 <form method="post" action ="/register">
 <div class="form-group">
 

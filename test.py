@@ -58,14 +58,36 @@ def register():
 
         #redirect to offer page
         return redirect('/register/%s/' % users['login'])
+    return render_template(
+    "register.html",
+    user_created=user_created,
+    error_message=error_message
+    )
 
+
+
+#    conn = sqlite3.connect('app.db')
+ #   conn.row_factory = dict_factory
+  #  c = conn.cursor()
+   # c.execute("SELECT * FROM users ORDER BY login ASC")
+   # users = c.fetchall()
+    #conn.close()
+    #return render_template('register.html', users = users)
+
+@app.route('/user/<login>/')
+def user_page(login):
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
     c = conn.cursor()
-    c.execute("SELECT * FROM users ORDER BY login ASC")
-    users = c.fetchall()
+
+    # Handler logic here
+    c.execute("SELECT * FROM users WHERE login='%s'" % login)
+    user_data = c.fetchone()
+
+    # Close connection
     conn.close()
-    return render_template('register.html', users = users)
+    return render_template("userpage.html", user=user_data)
+
 
 
 @app.route('/search', methods=['GET', 'POST'])
