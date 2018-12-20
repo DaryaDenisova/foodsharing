@@ -22,7 +22,35 @@ def offer():
 
 @app.route('/register')
 def register():
-    return render_template('register page.html')
+    if request.method == 'POST':
+        #add new data
+        users = {}
+        users['login'] = request.form.get('login')
+
+        #save to db
+        conn = sqlite3.connect('app.db')
+        c = conn.cursor()
+        c.execute("INSERT INTO users "
+                  "(login)"
+                  "VALUES"
+                  "('{login}')"
+                  "".format(**users))
+        conn.commit()
+        c.execute("SELECT last_insert_rowid()")
+        user_id = c.fetchone()
+        conn.close()
+
+    #redirect to offer page
+        return redirect('/register/%s/' % user_id)
+
+    conn = sqlite3.connect('app.db')
+    conn.row_factory = dict_factory
+    c = conn.cursor()
+    c.execute("SELECT * FROM users ORDER BY login ASC")
+    users = c.fetchall()
+    conn.close()
+    return render_template('register.html')
+
 
 @app.route('/search', methods=['GET', 'POST'])
 def search_for_offer():
@@ -131,6 +159,9 @@ def add_offer():
     conn.close()
 
     return render_template("add_offer.html",  metro_stations=metro_stations)
+
+
+
 
 
 app.run(port=5000)
