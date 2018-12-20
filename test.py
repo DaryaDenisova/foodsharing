@@ -13,6 +13,8 @@ def dict_factory(cursor, row):
     return d
 
 
+
+
 @app.route("/")
 def offer():
     return render_template('index.html')
@@ -56,10 +58,10 @@ def offer_page(offer_id):
     # Handler logic here
     c.execute("SELECT * FROM offer WHERE offer_id='%s'" % offer_id)
     offer_data = c.fetchone()
-
+    print(offer_data)
     # Close connection
     conn.close()
-    return render_template("offerpage.html", offer_id=offer_data)
+    return render_template("offerpage.html", offer=offer_data)
 
 
 
