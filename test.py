@@ -27,7 +27,7 @@ def register():
 @app.route('/search', methods=['GET', 'POST'])
 def search_for_offer():
     if request.method == 'POST':
-        offer_name = request.form.get('name')
+        query = request.form.get('name')
 
         # connecting to DB
      #   conn = sqlite3.connect('app.db')
@@ -49,18 +49,29 @@ def search_for_offer():
         #return render_template('search_result.html')
 
         # return resulting html
-        return redirect('search/%s/' % offer_name, offer_result = offer_name)
+
+        conn = sqlite3.connect('app.db')
+        conn.row_factory = dict_factory
+        c = conn.cursor()
+
+        c.execute("SELECT * FROM offer WHERE name='%s'" % query)
+        offer_data = list(c.fetchall())
+        conn.close()
+
+        return render_template("result.html", offers=offer_data)
+
+
     return render_template("search.html")
 
 
 @app.route('/search/<offer_result>/')
-def search_result(offer_result):
+def search_result(query):
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
     c = conn.cursor()
 
-    c.execute("SELECT * FROM offer WHERE name='%s'" % offer_result)
-    offer_data =c.fetchall()
+    c.execute("SELECT * FROM offer WHERE name='%s'" % query)
+    offer_data =list(c.fetchall())
     conn.close()
 
     return render_template("result.html", offers=offer_data)
