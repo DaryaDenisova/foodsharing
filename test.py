@@ -160,20 +160,23 @@ def add_offer():
         conn = sqlite3.connect('app.db')
         c = conn.cursor()
 
-        c.execute("SELECT user_id FROM users WHERE login='%s'" % login)
-        offer.update({'giver_id': c.fetchone()})
-        c.execute("INSERT INTO offer "
-                  "(name, category, description, location, giver_id, date, time) "
-                  "VALUES "
-                  "('{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
-                  "".format(**offer))
-        conn.commit()
-        c.execute("SELECT last_insert_rowid()")
-        offer_id = c.fetchone()
-        conn.close()
+        c.execute("SELECT user_id FROM users WHERE login='%s'" % offer["login"])
+        if c.fetchone():
+            offer.update({'giver_id': c.fetchone()})
+            c.execute("INSERT INTO offer "
+                      "(name, category, description, location, giver_id, date, time) "
+                      "VALUES "
+                      "('{name}', '{category}', '{description}', '{location}', '{giver_id}', '{date}', '{time}') "
+                      "".format(**offer))
+            conn.commit()
+            c.execute("SELECT last_insert_rowid()")
+            offer_id = c.fetchone()
+            conn.close()
 
-        #redirect to offer page
-        return redirect('/offer/%s/' % offer_id)
+            #redirect to offer page
+            return redirect('/offer/%s/' % offer_id)
+        else:
+            return render_template("warning.html")
 
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
