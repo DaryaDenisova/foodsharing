@@ -151,13 +151,17 @@ def add_offer():
         offer['category'] = request.form.get('category')
         offer['description'] = request.form.get('description')
         offer['location'] = request.form.get('location')
-        offer['giver_id'] = request.form.get('giver_id')
+        offer['login'] = request.form.get('login')
         offer['date'] = request.form.get('date')
         offer['time'] = request.form.get('time')
 
+        login = request.form.get('login')
         #save to db
         conn = sqlite3.connect('app.db')
         c = conn.cursor()
+
+        c.execute("SELECT user_id FROM users WHERE login='%s'" % login)
+        offer.update({'giver_id': c.fetchone()})
         c.execute("INSERT INTO offer "
                   "(name, category, description, location, giver_id, date, time) "
                   "VALUES "
