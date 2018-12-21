@@ -2,9 +2,8 @@ from flask import Flask, request, redirect
 from flask import render_template
 import sqlite3
 
-
-app = Flask(__name__)
-
+application = Flask(__name__)
+#import app.myviews
 
 def dict_factory(cursor, row):
     d = {}
@@ -15,12 +14,12 @@ def dict_factory(cursor, row):
 
 
 
-@app.route("/")
+@application.route("/")
 def offer():
     return render_template('index.html')
 
 
-@app.route('/register', methods = ['GET', 'POST'])
+@application.route('/register', methods=['GET', 'POST'])
 def register():
 
     user_created = False
@@ -34,11 +33,8 @@ def register():
         #save to db
         conn = sqlite3.connect('app.db')
         c = conn.cursor()
-        c.execute("INSERT INTO users "
-                  "(login)"
-                  "VALUES"
-                  "('{login}')"
-                  "".format(**users))
+
+        c.execute("SELECT * FROM users where login='%s'" % users['login'])
         if c.fetchone():
             # user with this login is already in my database
             error_message = "user_exists"
@@ -46,18 +42,13 @@ def register():
             c.execute("INSERT INTO users "
                       "(login) "
                       "VALUES "
-                      "('{login})"
+                      "('{login}')"
                       "".format(**users))
-
-
             conn.commit()
             user_created = True
-  #      c.execute("SELECT last_insert_rowid()")
-   #     user_id = c.fetchone()
-   #     conn.close()
-
-        #redirect to offer page
-        return redirect('/register/%s/' % users['login'])
+        conn.close()
+        # redirect to user page
+        return redirect('/users/%s/' % users['login'])
     return render_template(
     "register.html",
     user_created=user_created,
@@ -65,18 +56,9 @@ def register():
     )
 
 
-
-#    conn = sqlite3.connect('app.db')
- #   conn.row_factory = dict_factory
-  #  c = conn.cursor()
-   # c.execute("SELECT * FROM users ORDER BY login ASC")
-   # users = c.fetchall()
-    #conn.close()
-    #return render_template('register.html', users = users)
-
-@app.route('/user/<login>/')
+@application.route('/users/<login>/')
 def user_page(login):
-    conn = sqlite3.connect('app.db')
+    conn = sqlite3.connect('app.db ')
     conn.row_factory = dict_factory
     c = conn.cursor()
 
@@ -90,7 +72,7 @@ def user_page(login):
 
 
 
-@app.route('/search', methods=['GET', 'POST'])
+@application.route('/search', methods=['GET', 'POST'])
 def search_for_offer():
     if request.method == 'POST':
         query = request.form.get('name')
@@ -130,7 +112,7 @@ def search_for_offer():
     return render_template("search.html")
 
 
-@app.route('/search/<offer_result>/')
+@application.route('/search/<offer_result>/')
 def search_result(query):
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
@@ -144,7 +126,7 @@ def search_result(query):
 
 
 
-@app.route('/offer/<offer_id>/')
+@application.route('/offer/<offer_id>/')
 def offer_page(offer_id):
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
@@ -160,7 +142,7 @@ def offer_page(offer_id):
 
 
 
-@app.route('/add_offer', methods=['GET', 'POST'])
+@application.route('/add_offer', methods=['GET', 'POST'])
 def add_offer():
     if request.method == 'POST':
         #add new data
@@ -202,4 +184,4 @@ def add_offer():
 
 
 
-app.run(port=5000)
+application.run(port=5000, debug=True)
