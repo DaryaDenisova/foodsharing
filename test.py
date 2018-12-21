@@ -124,6 +124,17 @@ def search_result(query):
 
     return render_template("result.html", offers=offer_data)
 
+@application.route('/connect')
+def connect(value):
+    conn = sqlite3.connect('app.db')
+    conn.row_factory = dict_factory
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM users WHERE user_id='%s'" % value)
+    user_data =c.fetchone()
+    conn.close()
+
+    return render_template("connect.html", user=user_data)
 
 
 @application.route('/offer/<offer_id>/')
