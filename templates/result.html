@@ -22,14 +22,14 @@
           <label>Write a message</label>
           <input class = "form-control" type = "text" name = "message">
         <form method="post" action="/connect">
-            <button type="submit" class="btn btn-primary">Send a message to giver</button>
+            <button type="submit" class="btn btn-primary" action = "/connect">Send a message to giver</button>
         </form>
       </div>
     </div>
 
 {% endfor %}
 
-            <button type="submit" class="btn btn-primary" value = "{{offers.giver_id}}" name = "giver_id">Take the offer</button>
+            <button type="submit" class="btn btn-primary" value = "{{offers.giver_id}}" action="/connect" name = "giver_id">Take the offer</button>
 
 </body>
 </html>
