@@ -81,7 +81,8 @@ def search_for_offer():
         conn.row_factory = dict_factory
         c = conn.cursor()
         if query:
-            c.execute("SELECT * FROM offer WHERE name LIKE '{%query%}'")
+            c.execute("SELECT * FROM offer WHERE name LIKE '%{query}%'"
+                      "".format(query=query))
             offer_data = list(c.fetchall())
             conn.close()
 
@@ -103,7 +104,8 @@ def search_result(query):
     conn.row_factory = dict_factory
     c = conn.cursor()
  #   if request.method == 'GET':
-    c.execute("SELECT * FROM offer WHERE name='%s'" % query)
+    c.execute("SELECT * FROM offer WHERE name LIKE '%{query}%'"
+                      "".format(query=query))
     offer_data =list(c.fetchall())
     conn.close()
   #  else:

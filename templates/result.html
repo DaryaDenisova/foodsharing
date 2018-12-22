@@ -11,14 +11,13 @@
 <br>
 </br>
 
-
 {% for offers in offers %}
-<div class="row" align="center">
-  <div class="col-sm-" align="center">
-    <div class="card" align="center">
-      <div class="card-body" align="center">
-        <h5 class="card-title">{{offers.name}}</h5>
-        <p class="card-text">{{offers.description}}</p>
+
+<div class="card-group">
+  <div class="card">
+    <div class="card-body" align="center">
+      <h5 class="card-title">{{offers.name}}</h5>
+      <p class="card-text">{{offers.description}}</p>
         <label>Write a message</label>
           <br>
           <input class = "form-control" type = "text" name = "message">
@@ -26,14 +25,10 @@
             <button type="submit" class="btn btn-primary" href = "/connect">Send a message to giver</button>
             <br>
         </form>
-      </div>
     </div>
   </div>
-    <br>
 </div>
 <br>
-
-
 {% endfor %}
 
 
