@@ -12,13 +12,13 @@
 <form method="post" action ="/add_offer">
     <div class = "form-group">
     <label>Title</label>
-    <input class = "form-control" type = "text" name = "name">
+    <input class = "form-control" type = "text" name = "name" required><span></span>
 
     <label>Category</label>
-    <input class = "form-control" type = "text" name = "category">
+    <input class = "form-control" type = "text" name = "category" required><span></span>
 
     <label>Description</label>
-    <input class = "form-control" type = "text" name = "description">
+    <input class = "form-control" type = "text" name = "description" required><span></span>
 
     <label>Location</label>
         <select name="location" class="form-control">
@@ -28,17 +28,30 @@
         </select>
 
     <label>Your login</label>
-    <input class = "form-control" type = "text" name = "login">
+    <input class = "form-control" type = "text" name = "login" required><span></span>
 
     <label>Date</label>
-    <input class = "form-control" type = "date" name = "date">
+    <input class = "form-control" type = "date" name = "date" required><span></span>
 
     <label>Time</label>
-    <input class = "form-control" type = "time" name = "time">
+    <input class = "form-control" type = "time" name = "time" required><span></span>
 </div>
     <button type="submit" class="btn btn-primary">Add</button>
 
 </form>
 </div>
 </body>
+<footer>
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link" href="/register">Register</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/add_offer">Add Offer</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/search">Search</a>
+  </li>
+</ul>
+</footer>
 </html>
