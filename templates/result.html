@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Profile</title>
+    <title>Search results</title>
 </head>
 
 
@@ -18,13 +18,15 @@
       <div class="card-body">
         <h5 class="card-title">{{offers.name}}</h5>
         <p class="card-text">{{offers.description}}</p>
-        <form method="post" action='/connect'>
-            <button type="submit" class="btn btn-primary" value = {{offers.giver_id}}>Take the offer</button>
+        <form method="post" action="/connect">
+            <button type="submit" class="btn btn-primary" value = "{{offers.giver_id}}" name = "giver_id">Take the offer</button>
         </form>
       </div>
     </div>
 
 {% endfor %}
+
+
 
 </body>
 </html>

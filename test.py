@@ -106,31 +106,45 @@ def search_for_offer():
         offer_data = list(c.fetchall())
         conn.close()
 
-        return render_template("result.html", offers=offer_data)
-
-
+ #       return render_template("result.html", offers=offer_data)
+        return redirect('/result/%s' % query)
     return render_template("search.html")
 
 
-@application.route('/search/<offer_result>/')
+@application.route('/result/<query>', methods=['GET', 'POST'])
 def search_result(query):
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
     c = conn.cursor()
+    if request.method == 'GET':
+        c.execute("SELECT * FROM offer WHERE name='%s'" % query)
+        offer_data =list(c.fetchall())
+        conn.close()
+    else:
+  #      if request.form['giver_id']:
+        user = {}
 
-    c.execute("SELECT * FROM offer WHERE name='%s'" % query)
-    offer_data =list(c.fetchall())
-    conn.close()
 
+        user.update({'id': request.form('giver_id')})
+        user['id'] = request.form('giver_id')
+        user_id = request.form('giver_id')
+ #         user['id'] = request.form.get('giver_id')
+        c.execute("SELECT * FROM users WHERE user_id='%s'" % user["id"])
+        user_data =c.fetchone()
+        conn.close()
+        print(user['id'])
+        return redirect('/connect/%s/' % user_id)
     return render_template("result.html", offers=offer_data)
 
-@application.route('/connect')
-def connect(value):
+@application.route('/connect/<user_id>')
+def connect(user):
     conn = sqlite3.connect('app.db')
     conn.row_factory = dict_factory
     c = conn.cursor()
 
-    c.execute("SELECT * FROM users WHERE user_id='%s'" % value)
+    user = {}
+    user['id'] = request.form.get('giver_id')
+    c.execute("SELECT * FROM users WHERE user_id='%s'" % user["id"])
     user_data =c.fetchone()
     conn.close()
 
