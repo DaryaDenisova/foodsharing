@@ -38,6 +38,7 @@ def register():
         if c.fetchone():
             # user with this login is already in my database
             error_message = "user_exists"
+            return render_template("warning2.html")
         else:
             c.execute("INSERT INTO users "
                       "(login) "
@@ -76,28 +77,6 @@ def user_page(login):
 def search_for_offer():
     if request.method == 'POST':
         query = request.form.get('name')
-
-        # connecting to DB
-     #   conn = sqlite3.connect('app.db')
-      #  conn.row_factory = dict_factory
-
-     #   c.execute("SELECT last_insert_rowid()")
-     #   offer_result = c.fetchall()
-     #   conn.close()
-
-  #      c = conn.cursor() #creating cursor to execute queires
-   #     q = request.args.get('query') #getting query from Web
-
-        #handler logic here
-     #   c.execute("SELECT * FROM offer where name LIKE '%s'" %  offer_result)
-   #     offers = list(c.fetchall())
-
-        #close connection
-     #   conn.close()
-        #return render_template('search_result.html')
-
-        # return resulting html
-
         conn = sqlite3.connect('app.db')
         conn.row_factory = dict_factory
         c = conn.cursor()
@@ -121,34 +100,37 @@ def search_result(query):
         offer_data =list(c.fetchall())
         conn.close()
     else:
-  #      if request.form['giver_id']:
+
+#      if request.form['giver_id']:
         user = {}
-
-
         user.update({'id': request.form('giver_id')})
         user['id'] = request.form('giver_id')
         user_id = request.form('giver_id')
+   #     m = {}
+  #      m['message'] = request.form.get('message')
  #         user['id'] = request.form.get('giver_id')
-        c.execute("SELECT * FROM users WHERE user_id='%s'" % user["id"])
+        c.execute("SELECT * FROM users WHERE user_id='%s'" % user_id)
         user_data =c.fetchone()
         conn.close()
-        print(user['id'])
-        return redirect('/connect/%s/' % user_id)
+ #    print(user['id'])
+       # us_id = offer_data[3]
+        return redirect('/connect/%s' % user_id)
+     #   return redirect('/connect')
     return render_template("result.html", offers=offer_data)
 
-@application.route('/connect/<user_id>')
-def connect(user):
-    conn = sqlite3.connect('app.db')
-    conn.row_factory = dict_factory
-    c = conn.cursor()
+@application.route('/connect/<user_id>/')
+def connect():
+ #   conn = sqlite3.connect('app.db')
+  #  conn.row_factory = dict_factory
+   # c = conn.cursor()
 
-    user = {}
-    user['id'] = request.form.get('giver_id')
-    c.execute("SELECT * FROM users WHERE user_id='%s'" % user["id"])
-    user_data =c.fetchone()
-    conn.close()
+  #  user = {}
+  #  user['id'] = request.form.get('giver_id')
+  #  c.execute("SELECT * FROM users WHERE user_id='%s'" % user["id"])
+  #  user_data =c.fetchone()
+  #  conn.close()
 
-    return render_template("connect.html", user=user_data)
+    return render_template("connect.html")
 
 
 @application.route('/offer/<offer_id>/')
