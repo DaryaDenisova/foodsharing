@@ -13,25 +13,33 @@
 
 
 {% for offers in offers %}
-
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
+<div class="row" align="center">
+  <div class="col-sm-" align="center">
+    <div class="card" align="center">
+      <div class="card-body" align="center">
         <h5 class="card-title">{{offers.name}}</h5>
         <p class="card-text">{{offers.description}}</p>
+        <label>Write a message</label>
           <br>
-          <label>Write a message</label>
           <input class = "form-control" type = "text" name = "message">
-        <form method="post" action="/connect">
-            <button type="submit" class="btn btn-primary" action = "/connect">Send a message to giver</button>
+        <form method="get" action="/connect">
+            <button type="submit" class="btn btn-primary" href = "/connect">Send a message to giver</button>
+            <br>
         </form>
       </div>
     </div>
+  </div>
+    <br>
+</div>
+<br>
+
 
 {% endfor %}
 
-            <button type="submit" class="btn btn-primary" value = "{{offers.giver_id}}" action="/connect" name = "giver_id">Take the offer</button>
 
 </body>
+
+
 <footer>
 <ul class="nav justify-content-center">
   <li class="nav-item">

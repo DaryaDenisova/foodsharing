@@ -81,7 +81,7 @@ def search_for_offer():
         conn.row_factory = dict_factory
         c = conn.cursor()
         if query:
-            c.execute("SELECT * FROM offer WHERE name='%s'" % query)
+            c.execute("SELECT * FROM offer WHERE name LIKE '{%query%}'")
             offer_data = list(c.fetchall())
             conn.close()
 
